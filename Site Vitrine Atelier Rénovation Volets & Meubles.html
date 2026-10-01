@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>L'Atelier du Bois & Volets | Rénovation, Peinture & Ébénisterie d'Art</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            wood: {
+              50: '#fdf8f4',
+              100: '#f7eee3',
+              200: '#ebd8c2',
+              600: '#a3683f',
+              700: '#854f2c',
+              800: '#6c3f21',
+              900: '#462713',
+            },
+            sage: {
+              50: '#f4f7f4',
+              100: '#e5ece5',
+              600: '#52796f',
+              700: '#354f52',
+              800: '#2f3e46',
+            },
+            craft: '#d4a373',
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            serif: ['"Playfair Display"', 'serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* Slider interactif avant/après */
+    .compare-container {
+      position: relative;
+      overflow: hidden;
+      user-select: none;
+    }
+    .compare-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 50%;
+      height: 100%;
+      overflow: hidden;
+    }
+    .slider-handle {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      left: 50%;
+      cursor: ew-resize;
+      background: #ffffff;
+      box-shadow: 0 0 12px rgba(0,0,0,0.35);
+    }
+    .handle-circle {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  </style>
+</head>
+<body class="bg-wood-50 text-slate-800 font-sans antialiased selection:bg-wood-200 selection:text-wood-900">
+
+  <!-- En-tête & Barre de navigation -->
+  <header class="sticky top-0 z-50 bg-wood-50/95 backdrop-blur-md border-b border-wood-200/70 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        <!-- Logo -->
+        <a href="#" class="flex items-center gap-3 group">
+          <div class="w-11 h-11 rounded-xl bg-wood-800 text-wood-100 flex items-center justify-center shadow-md group-hover:bg-wood-700 transition-colors">
+            <svg class="w-6 h-6 stroke-current" fill="none" viewBox="0 0 24 24" stroke-width="1.8">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 006 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0118 16.5h-2.25m-7.5 0h7.5m-7.5 0l-1 3m8.5-3l1 3m0 0l.5 1.5m-.5-1.5h-9.5m0 0l-.5 1.5m.75-9 3-3 2.148 2.148A12.061 12.061 0 0116.5 7.605" />
+            </svg>
+          </div>
+          <div>
+            <span class="block text-xl font-bold font-serif tracking-tight text-wood-900 leading-none">L'Atelier Vernis & Volets</span>
+            <span class="text-xs uppercase tracking-widest text-wood-600 font-semibold">Artisan Rénovateur</span>
+          </div>
+        </a>
+
+        <!-- Menu Navigation Grand Écran -->
+        <nav class="hidden md:flex items-center gap-8 font-medium text-slate-700">
+          <a href="#services" class="hover:text-wood-700 transition-colors">Prestations</a>
+          <a href="#avant-apres" class="hover:text-wood-700 transition-colors">Avant / Après</a>
+          <a href="#savoir-faire" class="hover:text-wood-700 transition-colors">Notre Démarche</a>
+          <a href="#avis" class="hover:text-wood-700 transition-colors">Avis Clients</a>
+          <a href="#devis" class="hover:text-wood-700 transition-colors">Estimation & Devis</a>
+        </nav>
+
+        <!-- CTA Header -->
+        <div class="hidden sm:flex items-center gap-4">
+          <a href="tel:+33251000000" class="flex items-center gap-2 text-sm font-semibold text-wood-800 hover:text-wood-600 transition">
+            <svg class="w-4 h-4 text-sage-600" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 4V3z"/>
+            </svg>
+            <span>02 51 00 00 00</span>
+          </a>
+          <a href="#devis" class="px-5 py-2.5 rounded-full bg-wood-800 text-white font-medium text-sm hover:bg-wood-700 transition-all shadow hover:shadow-md">
+            Devis Gratuit
+          </a>
+        </div>
+
+        <!-- Bouton Menu Mobile -->
+        <button id="mobileMenuBtn" aria-label="Menu" class="md:hidden p-2 rounded-lg text-wood-900 hover:bg-wood-100">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Menu déroulant Mobile -->
+      <div id="mobileMenu" class="hidden md:hidden pb-6 pt-2 border-t border-wood-200">
+        <div class="flex flex-col space-y-3 font-medium text-slate-700">
+          <a href="#services" class="px-3 py-2 rounded-lg hover:bg-wood-100">Prestations</a>
+          <a href="#avant-apres" class="px-3 py-2 rounded-lg hover:bg-wood-100">Avant / Après</a>
+          <a href="#savoir-faire" class="px-3 py-2 rounded-lg hover:bg-wood-100">Notre Démarche</a>
+          <a href="#avis" class="px-3 py-2 rounded-lg hover:bg-wood-100">Avis</a>
+          <a href="#devis" class="px-3 py-2 rounded-lg bg-wood-800 text-white text-center font-medium">Demander un Devis</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="relative overflow-hidden pt-12 pb-20 lg:pt-20 lg:pb-28">
+    <div class="absolute inset-0 -z-10 opacity-30 pointer-events-none bg-[radial-gradient(#854f2c_1px,transparent_1px)] [background-size:24px_24px]"></div>
+    
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <!-- Texte Hero -->
+        <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-wood-100 border border-wood-200 text-wood-800 text-xs font-bold uppercase tracking-wider">
+            <span class="w-2 h-2 rounded-full bg-sage-600 animate-pulse"></span>
+            Savoir-faire artisanal & finitions durables
+          </div>
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-serif font-bold text-wood-900 leading-[1.15]">
+            Redonnez vie et éclat à vos <span class="text-wood-700 underline decoration-craft/60 decoration-wavy">volets</span> et <span class="text-sage-700">meubles anciens</span>.
+          </h1>
+          <p class="text-lg text-slate-600 max-w-2xl mx-auto lg:mx-0 font-normal leading-relaxed">
+            Spécialistes du traitement du bois : décapage délicat par aérogommage, ponçage traditionnel, peintures microporeuses haute protection et vernissages sur-mesure.
+          </p>
+
+          <!-- Badges de réassurance -->
+          <div class="pt-2 flex flex-wrap justify-center lg:justify-start gap-4 text-sm font-medium text-slate-700">
+            <div class="flex items-center gap-2">
+              <span class="text-sage-600 font-bold">✓</span> Décapage sans altérer la fibre
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-sage-600 font-bold">✓</span> Peintures garanties intempéries
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-sage-600 font-bold">✓</span> Enlèvement & réinstallation
+            </div>
+          </div>
+
+          <div class="pt-4 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+            <a href="#devis" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-wood-800 text-white font-semibold text-base shadow-lg shadow-wood-900/15 hover:bg-wood-700 hover:-translate-y-0.5 transition-all text-center">
+              Estimer mes travaux gratuitement
+            </a>
+            <a href="#avant-apres" class="w-full sm:w-auto px-7 py-4 rounded-xl bg-white border border-wood-200 text-wood-900 font-semibold text-base hover:bg-wood-100 hover:border-wood-300 transition-all text-center shadow-sm">
+              Voir nos réalisations
+            </a>
+          </div>
+        </div>
+
+        <!-- Visuel interactif / Hero Showcase -->
+        <div class="lg:col-span-5 relative">
+          <div class="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-white bg-slate-900">
+            <div class="aspect-[4/3] relative flex items-center justify-center">
+              <img 
+                src="https://images.unsplash.com/photo-1540518614846-7ede433c4ef0?auto=format&fit=crop&w=1000&q=80" 
+                alt="Meuble en bois rénové et verni" 
+                class="w-full h-full object-cover"
+                onerror="this.src='https://placehold.co/800x600/6c3f21/ffffff?text=Artisanat+du+Bois'"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-wood-900/80 via-transparent to-transparent"></div>
+              <div class="absolute bottom-6 left-6 right-6 text-white">
+                <span class="px-2.5 py-1 rounded bg-sage-600 text-xs font-semibold uppercase tracking-wider">Atelier de restauration</span>
+                <p class="mt-2 text-xl font-serif font-bold text-white">Rénovation & patine sur chêne massif</p>
+                <p class="text-sm text-wood-100 mt-1">Décapage fin, ponçage au grain fin et vernis satiné bi-composant.</p>
+              </div>
+            </div>
+          </div>
+          <!-- Flottant carte atelier -->
+          <div class="absolute -bottom-6 -left-6 bg-white p-4 rounded-xl shadow-xl border border-wood-100 hidden sm:flex items-center gap-3">
+            <div class="w-12 h-12 rounded-lg bg-wood-100 text-wood-800 flex items-center justify-center font-bold text-xl">
+              15+
+            </div>
+            <div>
+              <p class="text-xs text-slate-500 font-medium">Expérience & Tradition</p>
+              <p class="text-sm font-bold text-wood-900">Années de passion du bois</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Détaillés -->
+  <section id="services" class="py-20 bg-white border-y border-wood-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-xs font-bold uppercase tracking-widest text-wood-700 bg-wood-100 px-3.5 py-1 rounded-full">Prestations Métier</span>
+        <h2 class="mt-3 text-3xl sm:text-4xl font-serif font-bold text-wood-900">Deux expertises artisanales pour sublimer votre habitat</h2>
+        <p class="mt-4 text-slate-600 text-base leading-relaxed">
+          Que ce soit pour affronter les intempéries en façade ou sublimer les pièces précieuses de votre intérieur, nous appliquons un soin rigoureux à chaque pièce confiée.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+        <!-- Carte Service 1 : Rénovation de Volets -->
+        <div class="rounded-2xl border border-wood-200 bg-wood-50/50 p-8 hover:shadow-xl transition-all duration-300 flex flex-col justify-between group">
+          <div>
+            <div class="flex items-center justify-between mb-6">
+              <span class="w-14 h-14 rounded-xl bg-wood-800 text-wood-100 flex items-center justify-center group-hover:scale-105 transition-transform">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                </svg>
+              </span>
+              <span class="text-xs font-semibold px-3 py-1 rounded-full bg-wood-200 text-wood-900">Extérieur & Façade</span>
+            </div>
+
+            <h3 class="text-2xl font-serif font-bold text-wood-900 mb-3">Rénovation & Peinture de Volets</h3>
+            <p class="text-slate-600 mb-6 text-sm sm:text-base leading-relaxed">
+              Vos persiennes et volets battants subissent les UV, la pluie et le temps. Nous procédons à une rénovation complète pour redonner étanchéité, solidité et cachet à votre maison.
+            </p>
+
+            <ul class="space-y-3.5 mb-8 text-sm text-slate-700">
+              <li class="flex items-start gap-3">
+                <span class="w-5 h-5 rounded-full bg-wood-200 text-wood-900 flex items-center justify-center text-xs mt-0.5 font-bold">✓</span>
+                <span><strong>Décapage & Ponçage complet :</strong> Retrait des anciennes couches écaillées sans creuser les veines du bois.</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="w-5 h-5 rounded-full bg-wood-200 text-wood-900 flex items-center justify-center text-xs mt-0.5 font-bold">✓</span>
+                <span><strong>Traitement curatif & préventif :</strong> Fongicide, insecticide et consolidateur pour bois altérés.</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="w-5 h-5 rounded-full bg-wood-200 text-wood-900 flex items-center justify-center text-xs mt-0.5 font-bold">✓</span>
+                <span><strong>Peinture microporeuse professionnelle :</strong> Laisse respirer le bois tout en repoussant l'humidité (large nuancier RAL/Farrow).</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="w-5 h-5 rounded-full bg-wood-200 text-wood-900 flex items-center justify-center text-xs mt-0.5 font-bold">✓</span>
+                <span><strong>Ferronneries & Gonds :</strong> Dérouillage, passivation antirouille et laquage protecteur noir mat ou assorti.</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="pt-6 border-t border-wood-200/80 flex items-center justify-between">
+            <span class="text-xs text-slate-500 font-medium">Service dépose / repose possible à domicile</span>
+            <a href="#devis" class="text-sm font-bold text-wood-800 hover:text-wood-600 inline-flex items-center gap-1 group-hover:translate-x-1 transition-all">
+              Devis volets →
+            </a>
+          </div>
+        </div>
+
+        <!-- Carte Service 2 : Meubles & Ébénisterie -->
+        <div class="rounded-2xl border border-wood-200 bg-wood-50/50 p-8 hover:shadow-xl transition-all duration-300 flex flex-col justify-between group">
+          <div>
+            <div class="flex items-center justify-between mb-6">
+              <span class="w-14 h-14 rounded-xl bg-sage-700 text-sage-50 flex items-center justify-center group-hover:scale-105 transition-transform">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+                </svg>
+              </span>
+              <span class="text-xs font-semibold px-3 py-1 rounded-full bg-sage-100 text-sage-800">Mobilier d'Intérieur</span>
+            </div>
+
+            <h3 class="text-2xl font-serif font-bold text-wood-900 mb-3">Décapage & Vernissage de Meubles</h3>
+            <p class="text-slate-600 mb-6 text-sm sm:text-base leading-relaxed">
+              Buffets, tables de famille, commodes ou chaises : nous révélons l'authenticité de vos essences nobles (chêne, noyer, merisier) ou réalisons un relooking tendance.
+            </p>
+
+            <ul class="space-y-3.5 mb-8 text-sm text-slate-700">
+              <li class="flex items-start gap-3">
+                <span class="w-5 h-5 rounded-full bg-sage-200 text-sage-900 flex items-center justify-center text-xs mt-0.5 font-bold">✓</span>
+                <span><strong>Aérogommage & Décapage fin :</strong> Projection basse pression d'abrasifs naturels pour préserver les moulures délicates.</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="w-5 h-5 rounded-full bg-sage-200 text-sage-900 flex items-center justify-center text-xs mt-0.5 font-bold">✓</span>
+                <span><strong>Rebouchage & Greffe de bois :</strong> Réparation des fentes, chocs et placages décollés.</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="w-5 h-5 rounded-full bg-sage-200 text-sage-900 flex items-center justify-center text-xs mt-0.5 font-bold">✓</span>
+                <span><strong>Vernissage haute résistance & Huile :</strong> Finition mate, satinée ou brillante, hydrofuge et anti-taches pour tables.</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="w-5 h-5 rounded-full bg-sage-200 text-sage-900 flex items-center justify-center text-xs mt-0.5 font-bold">✓</span>
+                <span><strong>Patines & Relooking personnalisé :</strong> Effet blanchi, cérusé, bicolore ou couleur contemporaine.</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="pt-6 border-t border-wood-200/80 flex items-center justify-between">
+            <span class="text-xs text-slate-500 font-medium">Traitement des essences massives et placages</span>
+            <a href="#devis" class="text-sm font-bold text-sage-700 hover:text-sage-900 inline-flex items-center gap-1 group-hover:translate-x-1 transition-all">
+              Devis meuble →
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Galerie Avant / Après Interactive -->
+  <section id="avant-apres" class="py-20 bg-wood-100/60">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-12">
+        <span class="text-xs font-bold uppercase tracking-widest text-wood-700 bg-wood-200/80 px-3.5 py-1 rounded-full">Preuve par l'image</span>
+        <h2 class="mt-3 text-3xl sm:text-4xl font-serif font-bold text-wood-900">Comparez la métamorphose de nos réalisations</h2>
+        <p class="mt-3 text-slate-600 text-sm sm:text-base">
+          Glissez la barre centrale pour visualiser l’état initial du bois et le résultat final après notre intervention en atelier.
+        </p>
+      </div>
+
+      <!-- Onglets de sélection du cas Avant/Après -->
+      <div class="flex justify-center gap-3 mb-8">
+        <button id="btnCaseVolets" class="px-5 py-2.5 rounded-full text-sm font-semibold bg-wood-800 text-white shadow-sm transition">
+          Volets Battants Anciens
+        </button>
+        <button id="btnCaseMeuble" class="px-5 py-2.5 rounded-full text-sm font-semibold bg-white text-wood-900 border border-wood-300 hover:bg-wood-100 transition">
+          Table & Commode d'Époque
+        </button>
+      </div>
+
+      <!-- Slider interactif -->
+      <div class="max-w-4xl mx-auto bg-white p-3 rounded-2xl shadow-xl border border-wood-200">
+        <div id="compareBox" class="compare-container relative rounded-xl h-[360px] sm:h-[480px] cursor-ew-resize">
+          <!-- Image APRÈS (Fond) -->
+          <img 
+            id="afterImage"
+            src="https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1400&q=80" 
+            alt="Après rénovation" 
+            class="absolute inset-0 w-full h-full object-cover"
+            onerror="this.src='https://placehold.co/1200x800/52796f/ffffff?text=Résultat+Après+Restauration'"
+          />
+          <span class="absolute top-4 right-4 z-10 px-3 py-1 rounded-md bg-wood-900/80 backdrop-blur text-white text-xs font-bold tracking-wider uppercase">Après Restauration</span>
+
+          <!-- Image AVANT (Superposée et coupée en largeur) -->
+          <div id="overlayBox" class="compare-overlay">
+            <img 
+              id="beforeImage"
+              src="https://images.unsplash.com/photo-1533090161767-e6ffed986c88?auto=format&fit=crop&w=1400&q=80" 
+              alt="Avant rénovation" 
+              class="absolute inset-0 w-full h-full object-cover max-w-none"
+              style="width: 100%; height: 100%;"
+              onerror="this.src='https://placehold.co/1200x800/854f2c/ffffff?text=État+Initial+Avant+Travaux'"
+            />
+            <span class="absolute top-4 left-4 z-10 px-3 py-1 rounded-md bg-black/75 backdrop-blur text-white text-xs font-bold tracking-wider uppercase">Avant Intervention</span>
+          </div>
+
+          <!-- Curseur central -->
+          <div id="sliderHandle" class="slider-handle">
+            <div class="handle-circle w-10 h-10 rounded-full bg-white shadow-xl border-2 border-wood-700 flex items-center justify-center text-wood-800">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M8 9l-4 3 4 3m8-6l4 3-4 3" />
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="text-center text-xs text-slate-500 mt-4 flex items-center justify-center gap-1">
+        <span>↔</span> Touchez ou glissez le curseur horizontalement pour comparer
+      </p>
+    </div>
+  </section>
+
+  <!-- Processus Artisanal en 4 Étapes -->
+  <section id="savoir-faire" class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-xs font-bold uppercase tracking-widest text-wood-700 bg-wood-100 px-3.5 py-1 rounded-full">Exigence & Méthode</span>
+        <h2 class="mt-3 text-3xl sm:text-4xl font-serif font-bold text-wood-900">Le processus pas à pas de notre atelier</h2>
+        <p class="mt-4 text-slate-600">Un protocole rigoureux éprouvé pour garantir la pérennité du bois et une esthétique irréprochable.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <!-- Étape 1 -->
+        <div class="relative bg-wood-50 rounded-2xl p-6 border border-wood-200 flex flex-col justify-between">
+          <div>
+            <div class="w-12 h-12 rounded-xl bg-wood-800 text-white font-serif font-bold text-xl flex items-center justify-center mb-5">
+              01
+            </div>
+            <h3 class="text-lg font-bold text-wood-900 mb-2">Diagnostic & Préparation</h3>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              Examen des essences, repérage de l'humidité ou d'éventuels champignons. Démontage soigneux de la quincaillerie et des serrures.
+            </p>
+          </div>
+          <div class="mt-6 text-xs font-semibold text-wood-700 uppercase tracking-wider">Évaluation sur-mesure</div>
+        </div>
+
+        <!-- Étape 2 -->
+        <div class="relative bg-wood-50 rounded-2xl p-6 border border-wood-200 flex flex-col justify-between">
+          <div>
+            <div class="w-12 h-12 rounded-xl bg-wood-800 text-white font-serif font-bold text-xl flex items-center justify-center mb-5">
+              02
+            </div>
+            <h3 class="text-lg font-bold text-wood-900 mb-2">Décapage Doux</h3>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              Aérogommage écologique ou décapage thermique selon la fragilité des moulures afin de remettre le bois totalement à blanc.
+            </p>
+          </div>
+          <div class="mt-6 text-xs font-semibold text-wood-700 uppercase tracking-wider">Respect de la fibre</div>
+        </div>
+
+        <!-- Étape 3 -->
+        <div class="relative bg-wood-50 rounded-2xl p-6 border border-wood-200 flex flex-col justify-between">
+          <div>
+            <div class="w-12 h-12 rounded-xl bg-wood-800 text-white font-serif font-bold text-xl flex items-center justify-center mb-5">
+              03
+            </div>
+            <h3 class="text-lg font-bold text-wood-900 mb-2">Réparation & Ponçage</h3>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              Traitement xylophage en profondeur, rebouchage des gerçures, consolidation mécanique et ponçage minutieux au grain fin.
+            </p>
+          </div>
+          <div class="mt-6 text-xs font-semibold text-wood-700 uppercase tracking-wider">Surface soyeuse</div>
+        </div>
+
+        <!-- Étape 4 -->
+        <div class="relative bg-wood-50 rounded-2xl p-6 border border-wood-200 flex flex-col justify-between">
+          <div>
+            <div class="w-12 h-12 rounded-xl bg-sage-700 text-white font-serif font-bold text-xl flex items-center justify-center mb-5">
+              04
+            </div>
+            <h3 class="text-lg font-bold text-wood-900 mb-2">Finition & Protection</h3>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              Application de 2 à 3 couches de peinture microporeuse ou vernis polyuréthane haute durabilité. Égrenage intermédiaire entre les passes.
+            </p>
+          </div>
+          <div class="mt-6 text-xs font-semibold text-sage-700 uppercase tracking-wider">Tenue longue durée</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Avis & Témoignages Clients -->
+  <section id="avis" class="py-20 bg-wood-100/40 border-t border-wood-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-widest text-wood-700 bg-wood-200 px-3 py-1 rounded-full">Avis Clients</span>
+          <h2 class="mt-3 text-3xl sm:text-4xl font-serif font-bold text-wood-900">La confiance de nos clients</h2>
+        </div>
+        <div class="mt-4 md:mt-0 flex items-center gap-2">
+          <div class="flex text-amber-500">
+            ★★★★★
+          </div>
+          <span class="text-sm font-bold text-slate-800">4.9 / 5 sur plus de 90 chantiers</span>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Avis 1 -->
+        <div class="bg-white p-7 rounded-2xl shadow-sm border border-wood-200/80 flex flex-col justify-between">
+          <div>
+            <div class="flex text-amber-500 mb-4">★★★★★</div>
+            <p class="text-slate-700 text-sm leading-relaxed mb-6 italic">
+              « 8 paires de persiennes en bois centenaire rénovées de fond en comble. Le décapage a fait des merveilles, la peinture vert sauge est impeccable. La maison a retrouvé son élégance d'origine ! »
+            </p>
+          </div>
+          <div class="flex items-center gap-3 pt-4 border-t border-slate-100">
+            <div class="w-10 h-10 rounded-full bg-wood-200 flex items-center justify-center font-bold text-wood-800">
+              CB
+            </div>
+            <div>
+              <p class="text-sm font-bold text-slate-900">Claire & Bernard M.</p>
+              <p class="text-xs text-slate-500">Rénovation de 16 vantaux de volets</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Avis 2 -->
+        <div class="bg-white p-7 rounded-2xl shadow-sm border border-wood-200/80 flex flex-col justify-between">
+          <div>
+            <div class="flex text-amber-500 mb-4">★★★★★</div>
+            <p class="text-slate-700 text-sm leading-relaxed mb-6 italic">
+              « J'ai confié la table de salle à manger de mes grands-parents qui était noircie par la cire. Après aérogommage et vernis mat incolore, le veinage du chêne est à couper le souffle. Travail d'orfèvre. »
+            </p>
+          </div>
+          <div class="flex items-center gap-3 pt-4 border-t border-slate-100">
+            <div class="w-10 h-10 rounded-full bg-sage-200 flex items-center justify-center font-bold text-sage-800">
+              JG
+            </div>
+            <div>
+              <p class="text-sm font-bold text-slate-900">Julien G.</p>
+              <p class="text-xs text-slate-500">Décapage & vernis table en chêne</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Avis 3 -->
+        <div class="bg-white p-7 rounded-2xl shadow-sm border border-wood-200/80 flex flex-col justify-between">
+          <div>
+            <div class="flex text-amber-500 mb-4">★★★★★</div>
+            <p class="text-slate-700 text-sm leading-relaxed mb-6 italic">
+              « Artisan ponctuel, méticuleux et de très bon conseil sur le choix des teintes. Le devis a été respecté au centime près et les délais tenus. Je recommande sans hésitation. »
+            </p>
+          </div>
+          <div class="flex items-center gap-3 pt-4 border-t border-slate-100">
+            <div class="w-10 h-10 rounded-full bg-wood-200 flex items-center justify-center font-bold text-wood-800">
+              FL
+            </div>
+            <div>
+              <p class="text-sm font-bold text-slate-900">Françoise L.</p>
+              <p class="text-xs text-slate-500">Relooking commode & volets</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Simulateur & Demande de Devis -->
+  <section id="devis" class="py-20 bg-white border-t border-wood-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+        <!-- Colonne gauche : infos & arguments -->
+        <div class="lg:col-span-5 space-y-6">
+          <span class="text-xs font-bold uppercase tracking-widest text-wood-700 bg-wood-100 px-3 py-1 rounded-full">Devis Gratuit & Sans Engagement</span>
+          <h2 class="text-3xl sm:text-4xl font-serif font-bold text-wood-900">Estimez vos travaux en quelques clics</h2>
+          <p class="text-slate-600 leading-relaxed">
+            Chaque pièce de bois étant unique, nous réalisons systématiquement une confirmation sur photos ou sur place. Utilisez ce formulaire pour obtenir un premier ordre de grandeur instantané.
+          </p>
+
+          <div class="space-y-4 pt-4">
+            <div class="flex items-start gap-4 p-4 rounded-xl bg-wood-50 border border-wood-200/70">
+              <div class="w-10 h-10 rounded-lg bg-wood-800 text-white flex items-center justify-center shrink-0">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <div>
+                <h4 class="font-bold text-wood-900 text-sm">Réponse sous 24 à 48 heures</h4>
+                <p class="text-xs text-slate-600 mt-1">Étude rapide avec détails des produits utilisés et calendrier prévisionnel.</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4 p-4 rounded-xl bg-wood-50 border border-wood-200/70">
+              <div class="w-10 h-10 rounded-lg bg-sage-700 text-white flex items-center justify-center shrink-0">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <div>
+                <h4 class="font-bold text-wood-900 text-sm">Tarifs clairs & transparents</h4>
+                <p class="text-xs text-slate-600 mt-1">Fourniture des produits pros, traitement, main-d'œuvre et finitions incluses.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Colonne droite : Formulaire interactif avec pré-estimation -->
+        <div class="lg:col-span-7">
+          <div class="bg-wood-50/70 border border-wood-200 rounded-3xl p-6 sm:p-10 shadow-lg">
+            <form id="quoteForm" class="space-y-6">
+              
+              <!-- Sélection Type de Projet -->
+              <div>
+                <label class="block text-sm font-bold text-wood-900 mb-2">Quel type de projet avez-vous ?</label>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <label class="cursor-pointer border-2 border-wood-300 has-[:checked]:border-wood-800 has-[:checked]:bg-white rounded-xl p-4 flex items-center gap-3 transition">
+                    <input type="radio" name="projectType" value="volets" checked class="text-wood-800 focus:ring-wood-800">
+                    <span class="text-sm font-semibold text-slate-800">Volets & Persiennes</span>
+                  </label>
+                  <label class="cursor-pointer border-2 border-wood-300 has-[:checked]:border-wood-800 has-[:checked]:bg-white rounded-xl p-4 flex items-center gap-3 transition">
+                    <input type="radio" name="projectType" value="meubles" class="text-wood-800 focus:ring-wood-800">
+                    <span class="text-sm font-semibold text-slate-800">Meubles & Ébénisterie</span>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Options dynamiques Volets -->
+              <div id="sectionVolets" class="space-y-4">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label for="quantiteVolets" class="block text-xs font-bold text-wood-800 uppercase tracking-wider mb-1">Nombre de vantaux (panneaux)</label>
+                    <input type="number" id="quantiteVolets" min="1" max="50" value="4" class="w-full rounded-xl border-wood-300 border bg-white px-4 py-3 text-slate-800 font-semibold focus:ring-2 focus:ring-wood-800 focus:outline-none">
+                  </div>
+                  <div>
+                    <label for="finitionVolets" class="block text-xs font-bold text-wood-800 uppercase tracking-wider mb-1">Finition souhaitée</label>
+                    <select id="finitionVolets" class="w-full rounded-xl border-wood-300 border bg-white px-4 py-3 text-slate-800 font-semibold focus:ring-2 focus:ring-wood-800 focus:outline-none">
+                      <option value="peinture">Peinture microporeuse couleur</option>
+                      <option value="lasure">Lasure teintée haute protection</option>
+                      <option value="vernis">Vernis marin incolore</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Options dynamiques Meubles (masquées par défaut) -->
+              <div id="sectionMeubles" class="space-y-4 hidden">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label for="typeMeuble" class="block text-xs font-bold text-wood-800 uppercase tracking-wider mb-1">Type de meuble</label>
+                    <select id="typeMeuble" class="w-full rounded-xl border-wood-300 border bg-white px-4 py-3 text-slate-800 font-semibold focus:ring-2 focus:ring-wood-800 focus:outline-none">
+                      <option value="table">Grande Table de séjour</option>
+                      <option value="buffet">Buffet / Enfilade</option>
+                      <option value="commode">Commode / Meuble d'appoint</option>
+                      <option value="chaises">Lot de chaises / fauteuils</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label for="finitionMeuble" class="block text-xs font-bold text-wood-800 uppercase tracking-wider mb-1">Finition recherchée</label>
+                    <select id="finitionMeuble" class="w-full rounded-xl border-wood-300 border bg-white px-4 py-3 text-slate-800 font-semibold focus:ring-2 focus:ring-wood-800 focus:outline-none">
+                      <option value="vernis_mat">Vernis mat aspect bois brut</option>
+                      <option value="vernis_satine">Vernis satiné protecteur</option>
+                      <option value="patine">Patine / Effet vieilli ou cérusé</option>
+                      <option value="peinture">Laque peinture contemporaine</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Encadré d'estimation indicative -->
+              <div class="p-4 rounded-xl bg-wood-100 border border-wood-300/80 flex items-center justify-between">
+                <div>
+                  <span class="text-xs text-wood-700 uppercase font-bold tracking-wider">Fourchette estimative indicative</span>
+                  <p class="text-xs text-slate-500">Sous réserve de l'état du bois et des réparations</p>
+                </div>
+                <div class="text-right">
+                  <span id="estimatedPrice" class="text-2xl font-serif font-bold text-wood-900">320€ - 440€</span>
+                  <span class="block text-[10px] text-slate-500">TTC (hors transport complexe)</span>
+                </div>
+              </div>
+
+              <!-- Coordonnées du client -->
+              <div class="space-y-4 pt-2">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label for="clientNom" class="block text-xs font-medium text-slate-700 mb-1">Votre Nom & Prénom *</label>
+                    <input type="text" id="clientNom" required placeholder="Jean Dupont" class="w-full rounded-xl border border-wood-300 bg-white px-4 py-2.5 text-sm focus:ring-2 focus:ring-wood-800 focus:outline-none">
+                  </div>
+                  <div>
+                    <label for="clientVille" class="block text-xs font-medium text-slate-700 mb-1">Commune / Code Postal *</label>
+                    <input type="text" id="clientVille" required placeholder="85000 La Roche-sur-Yon" class="w-full rounded-xl border border-wood-300 bg-white px-4 py-2.5 text-sm focus:ring-2 focus:ring-wood-800 focus:outline-none">
+                  </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label for="clientEmail" class="block text-xs font-medium text-slate-700 mb-1">Adresse Email *</label>
+                    <input type="email" id="clientEmail" required placeholder="jean.dupont@email.com" class="w-full rounded-xl border border-wood-300 bg-white px-4 py-2.5 text-sm focus:ring-2 focus:ring-wood-800 focus:outline-none">
+                  </div>
+                  <div>
+                    <label for="clientTel" class="block text-xs font-medium text-slate-700 mb-1">Numéro de Téléphone *</label>
+                    <input type="tel" id="clientTel" required placeholder="06 00 00 00 00" class="w-full rounded-xl border border-wood-300 bg-white px-4 py-2.5 text-sm focus:ring-2 focus:ring-wood-800 focus:outline-none">
+                  </div>
+                </div>
+
+                <div>
+                  <label for="clientMessage" class="block text-xs font-medium text-slate-700 mb-1">Précisions utiles (état actuel du bois, dimensions, photos sur demande...)</label>
+                  <textarea id="clientMessage" rows="3" placeholder="Exemple : 4 paires de volets en sapin écaillés par le soleil, besoin de repeindre en blanc cassé..." class="w-full rounded-xl border border-wood-300 bg-white px-4 py-2 text-sm focus:ring-2 focus:ring-wood-800 focus:outline-none"></textarea>
+                </div>
+              </div>
+
+              <!-- Bouton validation -->
+              <button type="submit" class="w-full py-4 rounded-xl bg-wood-800 hover:bg-wood-700 text-white font-bold text-base transition-colors shadow-md">
+                Envoyer ma demande d'estimation gratuite
+              </button>
+
+              <div id="formSuccessMessage" class="hidden p-4 rounded-xl bg-emerald-100 text-emerald-800 border border-emerald-300 text-sm text-center font-medium">
+                Merci ! Votre demande a bien été enregistrée. Nous vous contacterons sous 24h avec une proposition détaillée.
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pied de page -->
+  <footer class="bg-wood-900 text-wood-100 pt-16 pb-12 border-t border-wood-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-wood-800/80">
+        
+        <!-- Colonne 1 : À propos -->
+        <div class="space-y-4">
+          <div class="flex items-center gap-2">
+            <div class="w-8 h-8 rounded-lg bg-wood-700 flex items-center justify-center font-bold font-serif text-white">
+              V
+            </div>
+            <span class="font-serif font-bold text-lg text-white">L'Atelier Vernis & Volets</span>
+          </div>
+          <p class="text-sm text-wood-200/80 leading-relaxed">
+            Entreprise artisanale spécialisée dans la préservation et la mise en valeur du patrimoine boisé des particuliers et professionnels.
+          </p>
+          <p class="text-xs text-wood-200/60">Garantie responsabilité civile professionnelle et savoir-faire traditionnel.</p>
+        </div>
+
+        <!-- Colonne 2 : Services -->
+        <div class="space-y-3">
+          <h4 class="font-serif font-bold text-white text-base">Nos Spécialités</h4>
+          <ul class="text-sm space-y-2 text-wood-200/80">
+            <li>• Rénovation de persiennes bois</li>
+            <li>• Peinture microporeuse extérieure</li>
+            <li>• Décapage minutieux par aérogommage</li>
+            <li>• Vernissage de tables et commodes</li>
+            <li>• Rénovation des ferrures et espagnolettes</li>
+          </ul>
+        </div>
+
+        <!-- Colonne 3 : Horaires & Atelier -->
+        <div class="space-y-3">
+          <h4 class="font-serif font-bold text-white text-base">Horaires d'Ouverture</h4>
+          <p class="text-sm text-wood-200/80">Du Lundi au Vendredi :<br><span class="text-white font-medium">8h00 - 12h30 / 14h00 - 18h30</span></p>
+          <p class="text-sm text-wood-200/80">Le Samedi matin :<br><span class="text-white font-medium">Sur rendez-vous en atelier</span></p>
+          <p class="text-xs text-wood-200/60 mt-2">Déplacement sur votre secteur pour dépose et livraison.</p>
+        </div>
+
+        <!-- Colonne 4 : Contact Direct -->
+        <div class="space-y-3">
+          <h4 class="font-serif font-bold text-white text-base">Nous Contacter</h4>
+          <p class="text-sm text-wood-200/80">
+            <strong>Téléphone :</strong> 02 51 00 00 00<br>
+            <strong>Mobile :</strong> 06 12 34 56 78<br>
+            <strong>Email :</strong> contact@atelier-volets-meubles.fr
+          </p>
+          <a href="#devis" class="inline-block mt-2 px-4 py-2 rounded-lg bg-wood-700 hover:bg-wood-600 text-xs font-bold text-white uppercase tracking-wider transition">
+            Prendre contact
+          </a>
+        </div>
+      </div>
+
+      <!-- Copyright -->
+      <div class="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-wood-200/60 gap-4">
+        <p>© 2026 L'Atelier Vernis & Volets. Tous droits réservés.</p>
+        <div class="flex gap-6">
+          <a href="#" class="hover:text-white transition">Mentions légales</a>
+          <a href="#" class="hover:text-white transition">Politique de confidentialité</a>
+          <a href="#" class="hover:text-white transition">Gestion des cookies</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // 1. Menu Mobile
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    // 2. Gestion du curseur interactif Avant / Après
+    const compareBox = document.getElementById('compareBox');
+    const overlayBox = document.getElementById('overlayBox');
+    const sliderHandle = document.getElementById('sliderHandle');
+    let isDragging = false;
+
+    function updateSlider(xPos) {
+      const rect = compareBox.getBoundingClientRect();
+      let offsetX = xPos - rect.left;
+      if (offsetX < 0) offsetX = 0;
+      if (offsetX > rect.width) offsetX = rect.width;
+      const percentage = (offsetX / rect.width) * 100;
+      overlayBox.style.width = percentage + '%';
+      sliderHandle.style.left = percentage + '%';
+    }
+
+    // Événements souris
+    compareBox.addEventListener('mousedown', (e) => {
+      isDragging = true;
+      updateSlider(e.clientX);
+    });
+    window.addEventListener('mouseup', () => { isDragging = false; });
+    window.addEventListener('mousemove', (e) => {
+      if (!isDragging) return;
+      updateSlider(e.clientX);
+    });
+
+    // Événements tactiles (Mobile & Tablette)
+    compareBox.addEventListener('touchstart', (e) => {
+      isDragging = true;
+      if (e.touches.length > 0) updateSlider(e.touches[0].clientX);
+    }, { passive: true });
+    window.addEventListener('touchend', () => { isDragging = false; });
+    window.addEventListener('touchmove', (e) => {
+      if (!isDragging || e.touches.length === 0) return;
+      updateSlider(e.touches[0].clientX);
+    }, { passive: true });
+
+    // Alternance des cas Avant / Après (Volets vs Meuble)
+    const btnCaseVolets = document.getElementById('btnCaseVolets');
+    const btnCaseMeuble = document.getElementById('btnCaseMeuble');
+    const beforeImage = document.getElementById('beforeImage');
+    const afterImage = document.getElementById('afterImage');
+
+    const cases = {
+      volets: {
+        before: "https://images.unsplash.com/photo-1533090161767-e6ffed986c88?auto=format&fit=crop&w=1400&q=80",
+        after: "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1400&q=80"
+      },
+      meuble: {
+        before: "https://images.unsplash.com/photo-1595428774223-ef52624120d2?auto=format&fit=crop&w=1400&q=80",
+        after: "https://images.unsplash.com/photo-1538688525198-9b88f6f53126?auto=format&fit=crop&w=1400&q=80"
+      }
+    };
+
+    btnCaseVolets.addEventListener('click', () => {
+      btnCaseVolets.className = "px-5 py-2.5 rounded-full text-sm font-semibold bg-wood-800 text-white shadow-sm transition";
+      btnCaseMeuble.className = "px-5 py-2.5 rounded-full text-sm font-semibold bg-white text-wood-900 border border-wood-300 hover:bg-wood-100 transition";
+      beforeImage.src = cases.volets.before;
+      afterImage.src = cases.volets.after;
+    });
+
+    btnCaseMeuble.addEventListener('click', () => {
+      btnCaseMeuble.className = "px-5 py-2.5 rounded-full text-sm font-semibold bg-wood-800 text-white shadow-sm transition";
+      btnCaseVolets.className = "px-5 py-2.5 rounded-full text-sm font-semibold bg-white text-wood-900 border border-wood-300 hover:bg-wood-100 transition";
+      beforeImage.src = cases.meuble.before;
+      afterImage.src = cases.meuble.after;
+    });
+
+    // 3. Calculateur interactif du devis
+    const projectRadios = document.querySelectorAll('input[name="projectType"]');
+    const sectionVolets = document.getElementById('sectionVolets');
+    const sectionMeubles = document.getElementById('sectionMeubles');
+    const quantiteVolets = document.getElementById('quantiteVolets');
+    const typeMeuble = document.getElementById('typeMeuble');
+    const estimatedPrice = document.getElementById('estimatedPrice');
+    const quoteForm = document.getElementById('quoteForm');
+    const formSuccessMessage = document.getElementById('formSuccessMessage');
+
+    function updateEstimate() {
+      const selectedType = document.querySelector('input[name="projectType"]:checked').value;
+      if (selectedType === 'volets') {
+        sectionVolets.classList.remove('hidden');
+        sectionMeubles.classList.add('hidden');
+        const count = parseInt(quantiteVolets.value, 10) || 1;
+        // Estimation base volets : ~80€ à 115€ par vantail
+        const min = count * 80;
+        const max = count * 115;
+        estimatedPrice.textContent = `${min}€ - ${max}€`;
+      } else {
+        sectionVolets.classList.add('hidden');
+        sectionMeubles.classList.remove('hidden');
+        const meubleVal = typeMeuble.value;
+        let min = 150, max = 250;
+        if (meubleVal === 'table') { min = 280; max = 460; }
+        else if (meubleVal === 'buffet') { min = 350; max = 600; }
+        else if (meubleVal === 'commode') { min = 220; max = 380; }
+        else if (meubleVal === 'chaises') { min = 160; max = 320; }
+        estimatedPrice.textContent = `${min}€ - ${max}€`;
+      }
+    }
+
+    projectRadios.forEach(radio => radio.addEventListener('change', updateEstimate));
+    quantiteVolets.addEventListener('input', updateEstimate);
+    typeMeuble.addEventListener('change', updateEstimate);
+
+    // Initialisation du calcul
+    updateEstimate();
+
+    // 4. Soumission du formulaire
+    quoteForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      formSuccessMessage.classList.remove('hidden');
+      quoteForm.reset();
+      updateEstimate();
+      formSuccessMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    });
+  </script>
+</body>
+</html>
